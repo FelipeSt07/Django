@@ -4,6 +4,10 @@ from album.models import Team
 from album.models import Player
 
 
+def base_view(request):
+    return render(request, 'base.html')  # Asegúrate de que la plantilla existe
+
+
 # Create your views here.
 class TeamListView(ListView):
     model = Team
@@ -13,3 +17,6 @@ class PlayerListView(ListView):
 
 class TeamDetailView(DetailView):
     model = Team
+
+class PlayerDetailView(DetailView):
+    model = Player

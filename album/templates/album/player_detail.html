@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block section %}
+   <h2>
+    <ul>
+        <li><strong>ID:</strong> {{ object.id }}</li>
+        <li><strong>Nombre:</strong> {{ object.first_name }}</li>
+        <li><strong>Apellido:</strong> {{ object.last_name }}</li>
+        <li><strong>Altura:</strong> {{ object.height }} cm</li>
+        <li><strong>Peso:</strong> {{ object.weight }} kg</li>
+    </ul>
+           {% if object.team_id %}
+         ( <a href="{% url "team-detail" object.team_id %}">
+             {{ object.team }}
+           </a> )
+       {% endif %}
+    </h2>
+    <p><strong>comments: </strong>{{ object.comment|default:"no comments" }}</p>
+   <hr>
+{% endblock section %}
+
+{% block maincontent %}
+<div>
+ <div>
+     <img src="{% static object.photo.url %}" style="width:250px;height:330px" />
+ </div>
+</div>
+{% endblock maincontent %} 
