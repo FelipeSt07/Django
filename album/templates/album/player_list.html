@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block section %}
 	 <h2>Players</h2>
 	 <hr>
@@ -8,8 +8,9 @@
 {% block maincontent %}
     <div>
         {% for c in object_list %}
+            <h2><img src="{% static c.photo.url %}" style="width:70px;height:80px"/>
             <a href="{% url 'player-detail' c.pk %}">
-                {{ c.first_name }} <br>
+                {{ c.first_name }} {{ c.last_name }} <br>
             </a>
         {% endfor %}
     </div>

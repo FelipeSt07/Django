@@ -14,6 +14,9 @@ class Team(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('team-list')
+
 class Player(models.Model):
     """ futbolista """
     team = models.ForeignKey('Team', on_delete=models.PROTECT,related_name='get_players' )
@@ -27,3 +30,17 @@ class Player(models.Model):
     
     def __str__(self):
         return self.first_name + " " + self.last_name
+
+    def get_absolute_url(self):
+        return reverse('player-list')
+
+@receiver(post_delete, sender=Team)
+def team_delete(sender, instance, **kwargs):
+     """ Borra los ficheros de las fotos que se eliminan. """
+     instance.shield.delete(False)
+     instance.team.delete(False)
+
+@receiver(post_delete, sender=Player)
+def player_delete(sender, instance, **kwargs):
+     """ Borra los ficheros de las fotos que se eliminan. """
+     instance.photo.delete(False)
